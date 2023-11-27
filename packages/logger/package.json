@@ -1,0 +1,16 @@
+{
+  "name": "logger",
+  "version": "0.0.0",
+  "description": "> TODO: description",
+  "author": "Mahdi Valizadeh <M.valizadeh@live.com>",
+  "homepage": "",
+  "license": "ISC",
+  "main": "lib/logger.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "files": [
+    "lib"
+  ],
+  "scripts": {}
+}

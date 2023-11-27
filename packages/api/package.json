@@ -1,7 +1,7 @@
 {
   "name": "todo-api",
   "version": "1.0.0",
-  "description": "",
+  "description": "> TODO: description",
   "main": "index.ts",
   "scripts": {
     "start": "nodemon index.ts",
@@ -20,5 +20,20 @@
   "devDependencies": {
     "@types/supertest": "^2.0.16",
     "ts-jest": "^29.1.1"
+  },
+  "homepage": "https://github.com/meitix/bizcuit#readme",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/meitix/bizcuit.git"
+  },
+  "bugs": {
+    "url": "https://github.com/meitix/bizcuit/issues"
   }
 }

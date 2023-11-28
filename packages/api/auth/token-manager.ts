@@ -10,8 +10,8 @@ export function generate(
   expiresIn?: number
 ): string {
   if (!expiresIn) {
-    return sign(payload, secretKey);
+    return `Bearer ` + sign(payload, secretKey);
   }
 
-  return sign(payload, secretKey, { expiresIn });
+  return `Bearer ` + sign(payload, secretKey, { expiresIn });
 }

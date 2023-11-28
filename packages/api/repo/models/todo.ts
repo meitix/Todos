@@ -5,12 +5,19 @@ import {
   Model,
   Table,
   ForeignKey,
+  PrimaryKey,
+  AutoIncrement,
 } from "sequelize-typescript";
 import { User } from "./user";
 import { Group } from "./group";
 
 @Table
 export class Todo extends Model implements ITodo {
+  @PrimaryKey
+  @AutoIncrement
+  @Column
+  id: number;
+
   @Column
   title: string;
 

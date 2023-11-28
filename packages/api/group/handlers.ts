@@ -1,7 +1,7 @@
 import { IGroupCreateOrUpdateModel, IUser } from "models/todos";
 import { HandlerResult, RequestHandler } from "../helpers";
 import { IAuthenticatedUser } from "../auth";
-import { Group } from "../repo";
+import { Group, Todo } from "../repo";
 import { StatusCodes } from "http-status-codes";
 import { logger } from "logger";
 import { InvalidGroupData, GroupNotFoundError } from "./errors";
@@ -20,6 +20,7 @@ export const createGroup: RequestHandler = async (
       title,
       userId: user.id,
     });
+
     return new HandlerResult(StatusCodes.CREATED, group);
   } catch (e) {
     logger.log("Error on creating group:", e);
@@ -40,6 +41,7 @@ export const getGroups: RequestHandler = async (
 
     const groups = await Group.findAll({
       where,
+      include: [Todo],
     });
     return new HandlerResult(StatusCodes.OK, groups);
   } catch (e) {

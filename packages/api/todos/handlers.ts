@@ -70,7 +70,7 @@ export const getTodo: RequestHandler = async (
 
 export const updateTodo: RequestHandler = async (
   user: IAuthenticatedUser,
-  id: { id: number },
+  { id }: { id: number },
   updatedFields: ITodoUpdateModel
 ) => {
   try {
@@ -90,10 +90,10 @@ export const updateTodo: RequestHandler = async (
 
 export const deleteTodo: RequestHandler = async (
   user: IAuthenticatedUser,
-  todoId: number
+  { id }: { id: number }
 ) => {
   try {
-    const todo = await Todo.findOne({ where: { id: todoId, userId: user.id } });
+    const todo = await Todo.findOne({ where: { id: id, userId: user.id } });
     if (!todo) {
       return new HandlerResult(StatusCodes.NOT_FOUND, new TodoNotFoundError());
     }

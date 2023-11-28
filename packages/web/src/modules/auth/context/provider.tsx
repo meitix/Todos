@@ -1,25 +1,23 @@
 import { createContext, FC, useEffect, useState } from "react";
 
-import { IAuthData } from "../models";
+import { AuthResult } from "models/auth";
 
 export const INITIAL_STATE: IAuthContext = {
   setAuthData: () => {},
   logOut: () => {},
   isAuthenticated: false,
   authData: {
-    jwt: "",
-    user: {
-      id: "",
-      username: "",
-    },
+    token: "",
+    refreshToken: "",
+    expiresIn: 0,
   },
 };
 
 export interface IAuthContext {
-  setAuthData: (auth: IAuthData) => void;
+  setAuthData: (auth: AuthResult) => void;
   logOut: () => void;
   isAuthenticated: boolean;
-  authData: IAuthData;
+  authData: AuthResult;
 }
 
 export const AuthContext = createContext<IAuthContext>(INITIAL_STATE);
@@ -27,7 +25,7 @@ export const AuthContext = createContext<IAuthContext>(INITIAL_STATE);
 export const AuthProvider: FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const [authData, setUserAuthData] = useState<IAuthData>(
+  const [authData, setUserAuthData] = useState<AuthResult>(
     INITIAL_STATE.authData
   );
 
@@ -36,16 +34,9 @@ export const AuthProvider: FC<{ children: React.ReactNode }> = ({
     setAuthData(res);
   }, []);
 
-  const setAuthData = (data: IAuthData) => {
-    const trimmedData = {
-      jwt: data.jwt,
-      user: {
-        id: data.user.id,
-        username: data.user.username,
-      },
-    };
-    setUserAuthData(trimmedData);
-    setStorage(trimmedData);
+  const setAuthData = (data: AuthResult) => {
+    setUserAuthData(data);
+    setStorage(data);
   };
 
   const logOut = () => {
@@ -53,7 +44,7 @@ export const AuthProvider: FC<{ children: React.ReactNode }> = ({
     setStorage(INITIAL_STATE.authData);
   };
 
-  const isAuthenticated = authData.jwt ? true : false;
+  const isAuthenticated = authData.token ? true : false;
 
   return (
     <AuthContext.Provider
@@ -71,12 +62,12 @@ export const AuthProvider: FC<{ children: React.ReactNode }> = ({
 
 const AUTH_RESULT_STORAGE_KEY = "auth-result";
 
-const setStorage = (data: IAuthData) => {
+const setStorage = (data: AuthResult) => {
   localStorage.setItem(AUTH_RESULT_STORAGE_KEY, JSON.stringify(data));
 };
 
 export const getStorage = () => {
-  let result: IAuthData;
+  let result: AuthResult;
   let storage = localStorage.getItem(AUTH_RESULT_STORAGE_KEY);
   if (storage) result = JSON.parse(storage);
   else result = INITIAL_STATE.authData;

@@ -5,7 +5,8 @@
   "main": "index.ts",
   "scripts": {
     "start": "nodemon index.ts",
-    "test": "jest"
+    "test": "jest",
+    "build": "tsc"
   },
   "author": "Mahdi Valizadeh",
   "license": "ISC",
@@ -26,9 +27,6 @@
     "lib": "lib",
     "test": "__tests__"
   },
-  "files": [
-    "lib"
-  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/meitix/bizcuit.git"

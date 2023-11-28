@@ -4,16 +4,9 @@
   "description": "> TODO: description",
   "main": "index.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest --passWithNoTests"
   },
   "keywords": [],
   "author": "Mahdi Valizadeh <M.valizadeh@live.com>",
-  "license": "ISC",
-  "directories": {
-    "lib": "lib",
-    "test": "__tests__"
-  },
-  "files": [
-    "lib"
-  ]
+  "license": "ISC"
 }

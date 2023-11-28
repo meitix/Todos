@@ -7,7 +7,8 @@ import { Group } from "./group";
 @Table
 export class User extends Model implements IUser, AuthUser {
   @Column
-  name: string;
+  username: string;
+
   @Column
   password: string;
 

@@ -29,7 +29,7 @@ describe("JWT Module Tests", () => {
       const payload = { some: "payload" };
       const result = generate(payload, SECRET);
 
-      expect(result).toBe("mocked-token");
+      expect(result).toBe("Bearer mocked-token");
 
       expect(sign).toHaveBeenCalledWith(payload, SECRET);
     });
@@ -42,7 +42,7 @@ describe("JWT Module Tests", () => {
       const expiresIn = 3600; // 1 hour
       const result = generate(payload, SECRET, expiresIn);
 
-      expect(result).toBe("mocked-token");
+      expect(result).toBe("Bearer mocked-token");
 
       expect(sign).toHaveBeenCalledWith(payload, SECRET, {
         expiresIn,

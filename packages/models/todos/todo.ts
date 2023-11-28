@@ -1,8 +1,10 @@
 import { IGroup } from "./group";
 
 export interface ITodo {
+  id: number;
   title: string;
   group?: IGroup;
+  groupId?: number;
   isDone: boolean;
   dueDate: Date;
 }

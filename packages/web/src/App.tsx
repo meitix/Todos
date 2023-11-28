@@ -1,16 +1,25 @@
-import React from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { AuthProvider, Login, Register } from "./modules/auth";
+import { Authenticated, AuthProvider, Login, Register } from "./modules/auth";
 import { Layout } from "./modules/layout";
-import { Auth } from "./pages";
+import { Auth, Todos } from "./pages";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Layout />,
+    element: (
+      <Authenticated>
+        <Layout />
+      </Authenticated>
+    ),
+    children: [
+      {
+        path: "",
+        element: <Todos />,
+      },
+    ],
   },
   {
-    path: "/auth",
+    path: "auth",
     element: <Auth />,
     children: [
       { path: "login", element: <Login /> },

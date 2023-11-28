@@ -5,12 +5,8 @@
   "author": "Mahdi Valizadeh <M.valizadeh@live.com>",
   "homepage": "",
   "license": "ISC",
-  "main": "lib/logger.js",
-  "directories": {
-    "lib": "lib"
-  },
-  "files": [
-    "lib"
-  ],
-  "scripts": {}
+  "main": "lib/logger.ts",
+  "scripts": {
+    "test": "jest --passWithNoTests"
+  }
 }

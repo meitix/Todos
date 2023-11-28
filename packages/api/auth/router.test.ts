@@ -1,9 +1,15 @@
 import express from "express";
 import request from "supertest";
 import { createAuthRouter } from "./router";
+import * as cryptoModule from "./crypto";
 import { User } from "../repo";
+import { compare } from "./crypto";
 
 jest.mock("../repo");
+jest.mock("./crypto");
+
+const mockCompare = cryptoModule.compare as jest.Mock;
+
 const router = createAuthRouter("your-secret-key");
 const app = express();
 app.use(express.json());
@@ -50,6 +56,7 @@ describe("Auth Router Tests", () => {
       password: "hashedPassword",
     };
     (User.findOne as jest.Mock).mockResolvedValue(mockUser);
+    mockCompare.mockResolvedValue(true);
 
     const response = await request(app)
       .post("/auth/login")

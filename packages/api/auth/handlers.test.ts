@@ -32,6 +32,7 @@ jest.mock("logger", () => {
 
 const mockUserCreate = User.create as jest.Mock;
 const mockHash = cryptoModule.hash as jest.Mock;
+const mockCompare = cryptoModule.compare as jest.Mock;
 const mockGenerate = tokenManagerModule.generate as jest.Mock;
 const mockIsEmail = isEmail as jest.Mock;
 const mockLogger = logger.log as jest.Mock;
@@ -71,7 +72,7 @@ describe("Auth Handlers", () => {
     it("should create a user, hash the password, generate a token, and return CREATED with AuthResult", async () => {
       mockIsEmail.mockReturnValue(true);
       mockHash.mockResolvedValue("hashedPassword");
-      mockUserCreate.mockResolvedValue({ id: "userId", name: "username" });
+      mockUserCreate.mockResolvedValue({ id: "userId", username: "username" });
       mockGenerate.mockResolvedValue("mockedToken");
 
       const credentials = {
@@ -84,7 +85,7 @@ describe("Auth Handlers", () => {
       expect(result.body).toBeInstanceOf(AuthResult);
       expect(mockUserCreate).toHaveBeenCalledWith({
         username: credentials.username,
-        hashedPassword: "hashedPassword",
+        password: "hashedPassword",
       });
       expect(mockHash).toHaveBeenCalledWith(credentials.password);
       expect(mockGenerate).toHaveBeenCalledWith(
@@ -153,12 +154,14 @@ describe("Auth Handlers", () => {
       };
       const user = {
         id: "userId",
-        name: "existingUser",
+        username: "existingUser",
         password: "hashedPassword",
       };
+
       mockHash.mockResolvedValue("hashedPassword");
       mockUserFindOne.mockResolvedValue(user);
       mockGenerate.mockResolvedValue("mockedToken");
+      mockCompare.mockResolvedValue(true);
 
       const result = await login(credentials);
 
